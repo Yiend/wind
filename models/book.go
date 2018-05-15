@@ -3,7 +3,7 @@ package models
 import "time"
 
 //小说基本信息
-type FicBaseInfo struct {
+type BookInfo struct {
 	BookName, //书名
 	Author,   //作者
 	Sort,     //分类
