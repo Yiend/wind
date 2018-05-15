@@ -6,18 +6,18 @@ package fetcher
 import (
 	"net/http"
 	"fmt"
-	"io/ioutil"
 	"golang.org/x/text/transform"
 	"bufio"
 	"golang.org/x/text/encoding"
 	"github.com/gpmgo/gopm/modules/log"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/net/html/charset"
+	"github.com/PuerkitoBio/goquery"
 )
 
 //需要爬取内容的URL
 //返回具体的内容
-func Fetch(url string) ([]byte, error) {
+func Fetch(url string) (*goquery.Document, error) {
 	//打开一个网页URL
 	resp, err := http.Get(url)
 	if err != nil {
@@ -28,8 +28,8 @@ func Fetch(url string) ([]byte, error) {
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("wrong status code: %d", resp.StatusCode)
 	}
-	//拿到body中的info
-	return ioutil.ReadAll(getEncodingRespBody(resp))
+	//拿到Document中的元素
+	return goquery.NewDocumentFromReader(getEncodingRespBody(resp))
 }
 
 //获取确认编码后的response body

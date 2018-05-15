@@ -4,11 +4,13 @@
 //engine收到种子时是不会马上执行解析的,它需要一个任务队列来维护
 package engine
 
+import "github.com/PuerkitoBio/goquery"
+
 //Url and parse,url is a seeds
 //ParseFunc is url parse function
 type Request struct {
 	Url       string
-	ParseFunc func([]byte) ParseResult
+	ParseFunc func(*goquery.Document) ParseResult
 }
 
 type ParseResult struct {
@@ -16,6 +18,6 @@ type ParseResult struct {
 	Items    []interface{} //访问url得到的数据
 }
 //TODO 用于test
-func NilParser([]byte) ParseResult {
+func NilParser(*goquery.Document) ParseResult {
 	return ParseResult{}
 }
