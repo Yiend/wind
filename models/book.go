@@ -11,3 +11,9 @@ type BookInfo struct {
 	UpdateTime time.Time //更新时间
 	Tags       []string  //标签
 }
+
+type BookChapter struct {
+	ChapterName,
+	ChapterContent string
+	ChapterUpdateTime time.Time
+}
